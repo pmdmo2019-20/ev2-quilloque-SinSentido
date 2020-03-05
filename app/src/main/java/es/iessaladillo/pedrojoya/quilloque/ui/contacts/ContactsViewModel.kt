@@ -20,7 +20,14 @@ class ContactsViewModel(val contactoDao: ContactoDao): ViewModel() {
 
     fun busquedaContacto(name: String){
         thread {
-            listaContactos.postValue(contactoDao.queryContactsByName(name))
+            listaContactos.postValue(contactoDao.queryContactsByName("%"+ name + "%"))
+        }
+    }
+
+    fun borrarContacto(contacto: Contacto){
+        thread {
+            contactoDao.deleteContacto(contacto)
+            actualizarListaContactos()
         }
     }
 }

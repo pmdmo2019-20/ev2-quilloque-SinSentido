@@ -39,6 +39,7 @@ class CreateContactFragment : Fragment(R.layout.contact_creation_fragment) {
         if(txtName.text.toString().length > 0 &&
                 txtPhoneNumber.text.toString().length > 0){
             viewModel.insertarContacto(txtName.text.toString(), txtPhoneNumber.text.toString())
+            activity!!.onBackPressed()
         }
     }
 }

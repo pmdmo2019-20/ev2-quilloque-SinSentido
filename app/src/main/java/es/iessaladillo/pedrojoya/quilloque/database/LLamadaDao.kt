@@ -11,4 +11,7 @@ interface LLamadaDao {
 
     @Query("SELECT * FROM llamada")
     fun queryAllLLamadas(): List<LLamada>
+
+    @Query("SELECT * FROM llamada WHERE numero LIKE :num")
+    fun queryAllLLamadasByNumber(num: String): List<LLamada>
 }

@@ -15,10 +15,16 @@ class DialViewModel(val llamadaDao: LLamadaDao): ViewModel() {
     var listaSugerencias: MutableLiveData<List<LLamada>> = MutableLiveData()
     val listaSugerenciasOberserve: LiveData<List<LLamada>> get() = listaSugerencias
 
-    fun cargarSugerencias( ) {
-        thread {
-
+    fun buscarLLamadas(num: String){
+        if(num != ""){
+            thread {
+                listaSugerencias.postValue(llamadaDao.queryAllLLamadasByNumber("%" + num + "%"))
+            }
         }
+        else{
+            listaSugerencias.value = listOf()
+        }
+
     }
 
     fun insertLLamada(tipo: String, numero: String, fecha: String, hora: String){
