@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import es.iessaladillo.pedrojoya.quilloque.R
 import es.iessaladillo.pedrojoya.quilloque.database.AppDatabase
 import es.iessaladillo.pedrojoya.quilloque.database.LLamada
+import es.iessaladillo.pedrojoya.quilloque.pojo.LLamadaContacto
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialAdapter
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialViewModel
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialViewModelFactory
@@ -54,7 +55,7 @@ class RecentFragment : Fragment(R.layout.recent_fragment) {
         lstCalls.adapter = listAdapter
     }
 
-    private fun confEmptyView(lista: List<LLamada>){
+    private fun confEmptyView(lista: List<LLamadaContacto>){
         if(lista.size > 0){
             emptyView.isVisible = false
         }
