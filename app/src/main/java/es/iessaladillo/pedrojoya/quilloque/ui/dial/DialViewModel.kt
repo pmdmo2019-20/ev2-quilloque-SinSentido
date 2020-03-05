@@ -7,18 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.room.Insert
 import es.iessaladillo.pedrojoya.quilloque.database.LLamada
 import es.iessaladillo.pedrojoya.quilloque.database.LLamadaDao
+import es.iessaladillo.pedrojoya.quilloque.pojo.LLamadaContacto
 import java.util.*
 import kotlin.concurrent.thread
 
 class DialViewModel(val llamadaDao: LLamadaDao): ViewModel() {
 
-    var listaSugerencias: MutableLiveData<List<LLamada>> = MutableLiveData()
-    val listaSugerenciasOberserve: LiveData<List<LLamada>> get() = listaSugerencias
+    var listaSugerencias: MutableLiveData<List<LLamadaContacto>> = MutableLiveData()
+    val listaSugerenciasOberserve: LiveData<List<LLamadaContacto>> get() = listaSugerencias
 
     fun buscarLLamadas(num: String){
         if(num != ""){
             thread {
-                listaSugerencias.postValue(llamadaDao.queryAllLLamadasByNumber("%" + num + "%"))
+                listaSugerencias.postValue(llamadaDao.queryAllLLamadasWithContactoByNumber("%" + num + "%"))
             }
         }
         else{

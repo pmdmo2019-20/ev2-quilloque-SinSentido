@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.iessaladillo.pedrojoya.quilloque.R
 import es.iessaladillo.pedrojoya.quilloque.database.AppDatabase
+import es.iessaladillo.pedrojoya.quilloque.database.LLamada
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialAdapter
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialViewModel
 import es.iessaladillo.pedrojoya.quilloque.ui.dial.DialViewModelFactory
@@ -40,6 +42,7 @@ class RecentFragment : Fragment(R.layout.recent_fragment) {
 
     private fun submitData(){
         viewModel.listaLLamadasObserve.observe(viewLifecycleOwner){
+            confEmptyView(it)
             listAdapter.submitData(it)
         }
     }
@@ -49,5 +52,14 @@ class RecentFragment : Fragment(R.layout.recent_fragment) {
         lstCalls.layoutManager = LinearLayoutManager(context)
         lstCalls.itemAnimator = DefaultItemAnimator()
         lstCalls.adapter = listAdapter
+    }
+
+    private fun confEmptyView(lista: List<LLamada>){
+        if(lista.size > 0){
+            emptyView.isVisible = false
+        }
+        else{
+            emptyView.isVisible = true
+        }
     }
 }

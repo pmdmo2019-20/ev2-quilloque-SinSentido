@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.pedrojoya.quilloque.R
 import es.iessaladillo.pedrojoya.quilloque.database.LLamada
+import es.iessaladillo.pedrojoya.quilloque.pojo.LLamadaContacto
 import es.iessaladillo.pedrojoya.quilloque.ui.contacts.ContactsAdapter
 import es.iessaladillo.pedrojoya.quilloque.utils.createAvatarDrawable
 import kotlinx.android.extensions.LayoutContainer
@@ -16,9 +17,9 @@ import org.w3c.dom.Text
 
 class DialAdapter: RecyclerView.Adapter<DialAdapter.ViewHolder>() {
 
-    var listaSugerencias: List<LLamada> = listOf()
+    var listaSugerencias: List<LLamadaContacto> = listOf()
 
-    fun submitData(nuevaLista: List<LLamada>){
+    fun submitData(nuevaLista: List<LLamadaContacto>){
         listaSugerencias = nuevaLista
         notifyDataSetChanged()
     }
@@ -32,7 +33,7 @@ class DialAdapter: RecyclerView.Adapter<DialAdapter.ViewHolder>() {
     override fun getItemCount(): Int = listaSugerencias.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var llamada: LLamada = listaSugerencias[position]
+        var llamada: LLamadaContacto = listaSugerencias[position]
         holder.bind(llamada)
     }
 
@@ -42,10 +43,29 @@ class DialAdapter: RecyclerView.Adapter<DialAdapter.ViewHolder>() {
         val lblContactName: TextView = containerView.findViewById(R.id.lblContactName)
         val lblPhoneNumber: TextView = containerView.findViewById(R.id.lblPhoneNumber)
 
-        fun bind(llamada: LLamada){
-            imgAvatar.setImageDrawable(createAvatarDrawable(llamada.numero))
-            lblContactName.setText(llamada.numero)
-            lblPhoneNumber.setText(llamada.numero)
+        fun bind(llamada: LLamadaContacto){
+            if(isContacto(llamada.idContacto)){
+                printContacto(llamada)
+            }
+            else{
+                printLLamada(llamada)
+            }
+        }
+
+        private fun printContacto(llamada: LLamadaContacto){
+            imgAvatar.setImageDrawable(createAvatarDrawable(llamada.nombre!!))
+            lblContactName.setText(llamada.nombre)
+            lblPhoneNumber.setText(llamada.numeroContacto)
+        }
+
+        private fun printLLamada(llamada: LLamadaContacto){
+            imgAvatar.setImageDrawable(createAvatarDrawable(llamada.numeroLLamada))
+            lblContactName.setText(llamada.numeroLLamada)
+            lblPhoneNumber.setText(llamada.numeroLLamada)
+        }
+
+        private fun isContacto(idContacto: Int?): Boolean{
+            return idContacto != null
         }
     }
 }
