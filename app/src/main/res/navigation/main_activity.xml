@@ -20,5 +20,9 @@
     <fragment
         android:id="@+id/createContactDestination"
         android:name="es.iessaladillo.pedrojoya.quilloque.ui.createContact.CreateContactFragment"
-        android:label="@string/contact_creation_title" />
+        android:label="@string/contact_creation_title" >
+        <argument
+            android:name="NUMERO"
+            app:argType="string" />
+    </fragment>
 </navigation>

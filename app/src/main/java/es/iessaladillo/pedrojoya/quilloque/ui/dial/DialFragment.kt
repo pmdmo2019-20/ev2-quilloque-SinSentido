@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -42,6 +43,7 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
 
     private fun setupViews(view: View){
         setupRecyclerView()
+        lblCreateContact.isVisible = false
         submitData()
         setupButtons()
     }
@@ -85,7 +87,9 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
     }
 
     private fun navigateToCreateContact(){
-        navController.navigate(R.id.createContactDestination)
+        navController.navigate(R.id.createContactDestination, bundleOf(
+            getString(R.string.number_key) to getCurrentNumber()
+        ))
     }
 
     private fun insertarLLamada(){
@@ -105,7 +109,7 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
     }
 
     private fun confEmptyView(lista: List<LLamadaContacto>){
-        if(lista.size > 0){
+        if(lista.size > 0 || getCurrentNumber().isNullOrEmpty()){
             lblCreateContact.isVisible = false
         }
         else{

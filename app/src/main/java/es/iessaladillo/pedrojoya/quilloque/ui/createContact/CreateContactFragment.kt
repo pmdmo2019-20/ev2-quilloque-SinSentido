@@ -28,7 +28,12 @@ class CreateContactFragment : Fragment(R.layout.contact_creation_fragment) {
     }
 
     private fun setupViews(view: View){
+        getNumber()
         setupButtons()
+    }
+
+    private fun getNumber(){
+        txtPhoneNumber.setText(arguments!!.getString(getString(R.string.number_key)))
     }
 
     private fun setupButtons(){
