@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class DialFragment : Fragment(R.layout.dial_fragment) {
+class DialFragment : Fragment(R.layout.dial_fragment), DialAdapter.OnItemClickListener {
 
     private val navController: NavController by lazy{
         findNavController()
@@ -35,7 +35,9 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
         DialViewModelFactory(AppDatabase.getInstance(this.requireContext()).llamadaDao)
     }
 
-    val listAdapter: DialAdapter = DialAdapter()
+    val listAdapter: DialAdapter = DialAdapter().also {
+        it.setOnItemClickListener(this)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -116,5 +118,9 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
         else{
             lblCreateContact.isVisible = true
         }
+    }
+
+    override fun onClick(llamada: Sugerencia) {
+        lblNumber.setText(llamada.numero)
     }
 }

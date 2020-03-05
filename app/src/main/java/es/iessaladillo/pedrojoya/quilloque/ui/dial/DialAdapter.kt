@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.iessaladillo.pedrojoya.quilloque.R
+import es.iessaladillo.pedrojoya.quilloque.database.Contacto
 import es.iessaladillo.pedrojoya.quilloque.database.LLamada
 import es.iessaladillo.pedrojoya.quilloque.pojo.LLamadaContacto
 import es.iessaladillo.pedrojoya.quilloque.pojo.Sugerencia
@@ -19,10 +20,15 @@ import org.w3c.dom.Text
 class DialAdapter: RecyclerView.Adapter<DialAdapter.ViewHolder>() {
 
     var listaSugerencias: List<Sugerencia> = listOf()
+    private var onItemClickListener: DialAdapter.OnItemClickListener? = null
 
     fun submitData(nuevaLista: List<Sugerencia>){
         listaSugerencias = nuevaLista
         notifyDataSetChanged()
+    }
+
+    fun setOnItemClickListener(listener: DialAdapter.OnItemClickListener){
+        onItemClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,10 +50,18 @@ class DialAdapter: RecyclerView.Adapter<DialAdapter.ViewHolder>() {
         val lblContactName: TextView = containerView.findViewById(R.id.lblContactName)
         val lblPhoneNumber: TextView = containerView.findViewById(R.id.lblPhoneNumber)
 
+        init {
+            containerView.setOnClickListener{ onItemClickListener?.onClick(listaSugerencias[adapterPosition]) }
+        }
+
         fun bind(llamada: Sugerencia){
             imgAvatar.setImageDrawable(createAvatarDrawable(llamada.nombre))
             lblContactName.setText(llamada.nombre)
             lblPhoneNumber.setText(llamada.numero)
         }
+    }
+
+    interface OnItemClickListener{
+        fun onClick(llamada: Sugerencia)
     }
 }
