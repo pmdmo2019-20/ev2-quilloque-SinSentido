@@ -18,6 +18,7 @@ import es.iessaladillo.pedrojoya.quilloque.R
 import es.iessaladillo.pedrojoya.quilloque.database.AppDatabase
 import es.iessaladillo.pedrojoya.quilloque.database.LLamada
 import es.iessaladillo.pedrojoya.quilloque.pojo.LLamadaContacto
+import es.iessaladillo.pedrojoya.quilloque.pojo.Sugerencia
 import kotlinx.android.synthetic.main.contacts_fragment.*
 import kotlinx.android.synthetic.main.dial_fragment.*
 import kotlinx.android.synthetic.main.main_activity.*
@@ -108,7 +109,7 @@ class DialFragment : Fragment(R.layout.dial_fragment) {
         lstSuggestions.adapter = listAdapter
     }
 
-    private fun confEmptyView(lista: List<LLamadaContacto>){
+    private fun confEmptyView(lista: List<Sugerencia>){
         if(lista.size > 0 || getCurrentNumber().isNullOrEmpty()){
             lblCreateContact.isVisible = false
         }
